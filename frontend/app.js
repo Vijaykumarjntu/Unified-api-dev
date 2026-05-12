@@ -8,7 +8,8 @@ const tokens = {};
 const connectBtns = document.querySelectorAll('.connect-btn');
 const fetchBtns = document.querySelectorAll('.fetch-btn');
 const outputEl = document.getElementById('output');
-
+console.log(connectBtns);
+console.log("connect b ut working");
 // Helper: Log to output
 function log(message, isError = false) {
     const timestamp = new Date().toLocaleTimeString();
@@ -35,7 +36,8 @@ async function connectProvider(provider) {
         log(`🔗 Connecting to ${provider}...`);
         const response = await fetch(`${API_URL}/auth/${provider}/login`);
         const data = await response.json();
-        
+        console.log("connection working");
+
         if (data.auth_url) {
             log(`📱 Opening ${provider} login page...`);
             // Store current provider in sessionStorage
@@ -86,34 +88,30 @@ async function fetchContacts(provider) {
 // Handle OAuth callback (when redirected back)
 async function handleOAuthCallback() {
     const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
+    const code = urlParams.get('token');
     const provider = sessionStorage.getItem('oauth_provider');
-    
+    console.log("now we are inside the callback1");
+    console.log(code);
+    console.log(provider);
+    log("now we are inside the call back call")
+    log(provider)
+    log(code)
     if (code && provider) {
         log(`🔄 Exchanging code for token with ${provider}...`);
         
         try {
-            const response = await fetch(`${API_URL}/auth/${provider}/callback?code=${code}`, {
-                method: 'GET'
-            });
             
-            const data = await response.json();
+            tokens[provider] = code;
+            log(`🔐 Successfully connected to ${provider}!`);
+            setFetchEnabled(provider, true);
             
-            if (data.success) {
-                tokens[provider] = data.access_token;
-                log(`🔐 Successfully connected to ${provider}!`);
-                setFetchEnabled(provider, true);
-                
-                // Clean URL
-                window.history.pushState({}, document.title, window.location.pathname);
-            } else {
-                throw new Error(data.error);
-            }
+            // Clean URL
+            window.history.pushState({}, document.title, window.location.pathname);
         } catch (error) {
             log(`OAuth failed: ${error.message}`, true);
         }
         
-        sessionStorage.removeItem('oauth_provider');
+        // sessionStorage.removeItem('oauth_provider');
     }
 }
 
