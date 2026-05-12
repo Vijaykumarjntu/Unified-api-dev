@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified API Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Unified API</h1>
+        <p class="subtitle">One API to rule all your SaaS connections</p>
+        
+        <div class="providers">
+            <div class="provider-card" data-provider="github">
+                <h2>🐙 GitHub</h2>
+                <p>Access your starred repos</p>
+                <button class="connect-btn" data-provider="github">Connect</button>
+                <button class="fetch-btn" data-provider="github" disabled>Fetch Contacts</button>
+            </div>
+            
+            <div class="provider-card" data-provider="slack">
+                <h2>💬 Slack</h2>
+                <p>Access your workspace members</p>
+                <button class="connect-btn" data-provider="slack">Connect</button>
+                <button class="fetch-btn" data-provider="slack" disabled>Fetch Contacts</button>
+            </div>
+            
+            <div class="provider-card" data-provider="notion">
+                <h2>📝 Notion</h2>
+                <p>Access your database users</p>
+                <button class="connect-btn" data-provider="notion">Connect</button>
+                <button class="fetch-btn" data-provider="notion" disabled>Fetch Contacts</button>
+            </div>
+        </div>
+        
+        <div class="results">
+            <h3>📋 Results</h3>
+            <pre id="output">Click "Fetch Contacts" to see data...</pre>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
