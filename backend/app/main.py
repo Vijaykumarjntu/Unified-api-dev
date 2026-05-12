@@ -34,12 +34,10 @@ async def root():
 async def health():
     return {"status": "OK", "timestamp": datetime.now().isoformat()}
 
-
-
 # Import routes (we'll add these in Level 2)
-# from .routes import contacts, auth
-from .routes import auth
-# app.include_router(contacts.router, prefix="/api/v1")
+from .routes import contacts, auth
+# from .routes import auth
+app.include_router(contacts.router, prefix="/api/v1")
 app.include_router(auth.router, prefix="/api/v1")
 
 if __name__ == "__main__":
