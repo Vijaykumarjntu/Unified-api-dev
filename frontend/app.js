@@ -98,13 +98,10 @@ async function handleOAuthCallback() {
     log(code)
     if (code && provider) {
         log(`🔄 Exchanging code for token with ${provider}...`);
-        
         try {
-            
             tokens[provider] = code;
             log(`🔐 Successfully connected to ${provider}!`);
             setFetchEnabled(provider, true);
-            
             // Clean URL
             window.history.pushState({}, document.title, window.location.pathname);
         } catch (error) {

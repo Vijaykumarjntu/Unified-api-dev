@@ -125,4 +125,8 @@ async def callback(provider: str, code: str, request: Request):
         
         # In a real app, you'd redirect back to frontend with user_id
         # For simplicity, we'll just return the token
-        return OAuthResponse(success=True, access_token=access_token)
+        # IMPORTANT: Redirect to frontend with token in URL
+        frontend_url = f"http://localhost:3000?provider=slack&token={access_token}"
+        
+        return RedirectResponse(url=frontend_url)
+        # return OAuthResponse(success=True, access_token=access_token)
